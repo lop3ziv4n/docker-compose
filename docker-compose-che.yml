@@ -15,3 +15,5 @@ services:
 volumes:
   eclipse-storage:
     driver: local
+
+# docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /home/debian/che-storage:/data eclipse/che start
