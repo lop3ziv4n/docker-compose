@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  eclipse-che:
+    container_name: eclipse-che
+    image: eclipse/che
+    restart: always
+    command: start
+    ports:
+      - "8080:8080"
+    volumes:
+      - eclipse-storage:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  eclipse-storage:
+    driver: local
