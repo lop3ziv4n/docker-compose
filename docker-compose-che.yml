@@ -10,10 +10,12 @@ services:
       - "8080:8080"
     volumes:
       - eclipse-storage:/data
+      - eclipse-storage:/instance
       - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   eclipse-storage:
     driver: local
 
-# docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v /home/debian/che-storage:/data eclipse/che start
+# docker volume create --driver local eclipse-storage
+# docker run -it -p 8081:8080 -v /var/run/docker.sock:/var/run/docker.sock -v /home/iv4nlop3z/.eclipse-storage:/data eclipse/che start
