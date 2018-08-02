@@ -2,16 +2,47 @@ version: '3'
 
 services:
 
-  consul:
-    container_name: consul
+  consul-server-bootstrap:
+    container_name: consul-server-bootstrap
     image: consul
     restart: always
     ports:
     - "8400:8400"
     - "8500:8500"
     - "8600:8600"
+    command: "agent -server -bootstrap-expect 3 -ui -client 0.0.0.0"
     volumes:
-      - consul-storage:/consul/data
+    - consul-storage:/consul/data
+
+  consul-server-1:
+    container_name: consul-server-1
+    image: consul
+    restart: always
+    command: "agent -server -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-server-2:
+    container_name: consul-server-2
+    image: consul
+    restart: always
+    command: "agent -server -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-agent-1:
+    container_name: consul-agent-1
+    image: consul
+    restart: always
+    command: "agent -retry-join consul-server-1 -client 0.0.0.0"
+
+  consul-agent-2:
+    container_name: consul-agent-2
+    image: consul
+    restart: always
+    command: "agent -retry-join consul-server-2 -client 0.0.0.0"
+
+  consul-agent-3:
+    container_name: consul-agent-3
+    image: consul
+    restart: always
+    command: "agent -retry-join consul-server-2 -client 0.0.0.0"
 
 volumes:
   consul-storage:
