@@ -1,0 +1,30 @@
+version: '3.2'
+
+services:
+
+  minio:
+    container_name: minio
+    image: minio/minio
+    restart: always
+    ports:
+      - "9009:9000"
+    command: server /data
+    environment:
+      - MINIO_ACCESS_KEY=sidca
+      - MINIO_SECRET_KEY=sidcaAPP
+    volumes:
+      - minio_data-storage:/data
+      - minio_config-storage:/root/.minio
+    networks:
+      - minio-net
+
+volumes:
+  minio_data-storage:
+    driver: local
+  minio_config-storage:
+      driver: local
+
+networks:
+  minio-net:
+    external:
+      name: net_172_15
