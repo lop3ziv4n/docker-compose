@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.7.8-management
+    restart: always
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: sidca
+      RABBITMQ_DEFAULT_PASS: sidcaMQ
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmq-conf-storage:/etc/rabbitmq
+      - rabbitmq-storage:/var/lib/rabbitmq
+      - rabbitmq-storage:/var/log/rabbitmq
+    networks:
+      - rabbitmq-net
+
+volumes:
+  rabbitmq-conf-storage:
+    driver: local
+  rabbitmq-storage:
+    driver: local
+
+networks:
+  rabbitmq-net:
+    external:
+      name: net_172_15
+
+#docker network create --driver=bridge --subnet=172.15.0.0/16 --gateway=172.15.0.1 net_172_15
+

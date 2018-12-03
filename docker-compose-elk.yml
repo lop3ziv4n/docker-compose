@@ -1,0 +1,51 @@
+# Elasticsearch, Logstash, and Kibana
+version: '3.2'
+
+services:
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.1
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    volumes:
+      - elasticsearch_data-storage:/usr/share/elasticsearch/data
+    networks:
+      - elk-net
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:6.5.1
+    ports:
+      - '5601:5601'
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+    networks:
+      - elk-net
+
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:6.5.1
+    ports:
+      - '5044:5044'
+    volumes:
+      - ./conf/logstash/logstash.conf:/usr/share/logstash/logstash.conf:ro
+    command: logstash -f logstash.conf --config.reload.automatic
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+    networks:
+      - elk-net
+
+volumes:
+  elasticsearch_data-storage:
+    driver: local
+
+networks:
+  elk-net:
+    external:
+      name: net_172_15

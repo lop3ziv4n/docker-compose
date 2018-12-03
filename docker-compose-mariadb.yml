@@ -1,4 +1,4 @@
-version: "2"
+version: "3.1"
 
 services:
   mariadb:
@@ -11,6 +11,13 @@ services:
       - "3306:3306"
     volumes:
       - mariadb-storage:/var/lib/mysql
+    networks:
+      - mariadb-net
+
+networks:
+  mariadb-net:
+    external:
+      name: net_172_15
 
 volumes:
   mariadb-storage:

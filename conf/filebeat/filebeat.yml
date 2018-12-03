@@ -1,0 +1,13 @@
+#----------------------------- Filebeat inputs --------------------------------
+filebeat.inputs:
+  - type: docker
+    containers.ids:
+      - '*'
+    processors:
+      - add_docker_metadata: ~
+    fields:
+      - logsource: node1
+      - logtype: docker
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  hosts: '${LOGSTASH_HOST}'

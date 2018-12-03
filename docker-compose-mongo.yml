@@ -1,15 +1,27 @@
-version: "2"
+version: '3.1'
 
 services:
   mongodb:
     container_name: mongo
     image: mongo
     restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     ports:
       - "27017:27017"
     volumes:
       - mongo-storage:/data/db
+    networks:
+      - mongo-net
 
 volumes:
   mongo-storage:
     driver: local
+
+networks:
+  mongo-net:
+    external:
+      name: net_172_15
+
+#docker network create --driver=bridge --subnet=172.15.0.0/16 --gateway=172.15.0.1 net_172_15

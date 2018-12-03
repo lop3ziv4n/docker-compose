@@ -14,7 +14,6 @@ services:
     networks:
       - portainer_agent-net
 
-
 networks:
   portainer_agent-net:
     external:

@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  consul:
+    container_name: consul
+    image: consul
+    restart: always
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+    command: "agent -dev -ui -client 0.0.0.0"
+    volumes:
+      - consul-storage:/consul/data
+    networks:
+      - consul-net
+
+volumes:
+  consul-storage:
+    driver: local
+
+networks:
+  consul-net:
+    external:
+      name: net_172_15
+
+#docker network create --driver=bridge --subnet=172.15.0.0/16 --gateway=172.15.0.1 net_172_15
