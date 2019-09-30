@@ -1,0 +1,26 @@
+version: '3.2'
+
+services:
+
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    restart: always
+    environment:
+      - REPO_USER={username}
+      - REPO_PASS={password}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: {container-name} --interval 60 --remove-volumes --cleanup --debug
+    networks:
+      - watchtower-net
+
+networks:
+  watchtower-net:
+    external:
+      name: net_172_15
+
+#docker network create --driver=bridge --subnet=172.15.0.0/16 --gateway=172.15.0.1 net_172_15
+
+# https://containrrr.github.io/watchtower/
