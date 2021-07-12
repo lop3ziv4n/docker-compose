@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.5"
 
 services:
   mariadb:
@@ -6,13 +6,23 @@ services:
     image: mariadb
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD: root
+      - MYSQL_DATABASE: mydb
+      - MYSQL_USER: user
+      - MYSQL_PASSWORD: user
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - mariadb-storage:/var/lib/mysql
     networks:
       - mariadb-net
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
 networks:
   mariadb-net:
