@@ -12,14 +12,14 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-storage:/data
-    networks:
-      - portainer-net
+#    networks:
+#      - portainer-net
 
 volumes:
   portainer-storage:
     driver: local
 
-networks:
-  portainer-net:
-    external:
-      name: net_172_15
+#networks:
+#  portainer-net:
+#    external:
+#      name: net_172_15
