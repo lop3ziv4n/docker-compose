@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - swagger-storage:/foo
+    environment:
+#     SWAGGER_JSON: /foo/allAPI-swagger.json
+      API_URL: http://localhost:8080/foo/api/documentation/json
+
+volumes:
+  swagger-storage:
+    driver: local
