@@ -1,5 +1,3 @@
-version: "2"
-
 services:
   eclipse-che:
     container_name: eclipse-che

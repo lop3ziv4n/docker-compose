@@ -1,0 +1,21 @@
+services:
+
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+#    networks:
+#      - grafana-net
+
+volumes:
+  grafana-storage:
+    driver: local
+
+#networks:
+#  grafana-net:
+#    external:
+#      name: net_172_15

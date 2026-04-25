@@ -1,15 +1,12 @@
-version: '3.1'
-
 services:
-
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.7.8-management
     restart: always
     hostname: rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: sidca
-      RABBITMQ_DEFAULT_PASS: sidcaMQ
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     ports:
       - "15672:15672"
       - "5672:5672"

@@ -1,6 +1,4 @@
 # Elasticsearch, Logstash, and Kibana
-version: '3.2'
-
 services:
 
   elasticsearch:

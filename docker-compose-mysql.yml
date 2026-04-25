@@ -1,13 +1,11 @@
-version: '3.5'
-
 services:
   mysql:
     container_name: mysql
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "3308:3306"
+      - "3306:3306"
     volumes:
-       - /home/iv4nlop3z/Documents/local-storage/mysql:/var/lib/mysql
+       - ${MYSQL_STORAGE}:/var/lib/mysql

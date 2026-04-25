@@ -1,0 +1,21 @@
+services:
+  ords:
+    container_name: ords
+    image: container-registry.oracle.com/database/ords:latest
+    ports:
+      - "8086:8080"
+    restart: always
+    environment:
+      JAVA_OPTIONS: -Xmx512m
+      ORDS_DATABASE_HOST: ${ORDS_DATABASE_HOST}
+      ORDS_DATABASE_PORT: ${ORDS_DATABASE_PORT}
+      ORDS_DATABASE_NAME: ${ORDS_DATABASE_NAME}
+      ORDS_DATABASE_USERNAME: ${ORDS_DATABASE_USERNAME}
+      ORDS_DATABASE_PASSWORD: ${ORDS_DATABASE_PASSWORD}
+      ORDS_PATH: ${ORDS_PATH}
+      ORDS_DATABASE_POOL_INITIAL_SIZE: ${ORDS_DATABASE_POOL_INITIAL_SIZE}
+      ORDS_DATABASE_POOL_MAX_SIZE: ${ORDS_DATABASE_POOL_MAX_SIZE}
+    command: serve
+    volumes:
+   #   - ./conf/ords/ords.properties:/opt/oracle/ords/config/ords.properties
+      - ${ORDS_STORAGE}:/opt/oracle/ords/config

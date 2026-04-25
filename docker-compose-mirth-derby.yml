@@ -1,0 +1,35 @@
+services:
+  mirth-connect:
+    container_name: mirth-connect
+    image: nextgenhealthcare/connect
+    environment:
+      - VMOPTIONS=-Xmx512m
+    restart: always
+    volumes:
+      - ${MIRTH_STORAGE}:/opt/connect
+    secrets:
+      - mirth_properties
+      - mcserver_vmoptions
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8443:8443"
+      - "6661:6661"
+#    networks:
+#      - mirth-net
+
+#volumes:
+#  mirth-storage:
+#    driver: local
+
+#networks:
+#  mirth-net:
+#    external:
+#      name: net_172_15
+
+secrets:
+  mirth_properties:
+    file: ./conf/mirth/secret.properties
+  mcserver_vmoptions:
+    file: ./conf/mirth/secret.vmoptions

@@ -1,7 +1,4 @@
-version: '3.5'
-
 services:
-
   nexus:
     container_name: nexus
     image: sonatype/nexus3

@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'tomcat (node 1)'
+    static_configs:
+      - targets: ['127.0.0.1:9991']
+    metrics_path: /jmx
+    scheme: http
+    basic_auth:
+      username: 'systemadmin'
+      password: 'passadmin'
+
+  - job_name: 'tomcat (node 2)'
+    static_configs:
+      - targets: [ '127.0.0.1:9992' ]
+    metrics_path: /jmx
+    scheme: http
+    basic_auth:
+      username: 'systemadmin'
+      password: 'passadmin'

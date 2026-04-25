@@ -1,0 +1,26 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres#123
+    ports:
+      - "5432:5432"
+  graphql-engine:
+    container_name: hasura
+    image: hasura/graphql-engine:v2.40.0
+    ports:
+      - "8085:8080"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:postgres#123@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: hasura#123
+
+volumes:
+  db_data:
